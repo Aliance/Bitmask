@@ -1,0 +1,28 @@
+{
+  "name": "aliance/bitmask",
+  "description": "Simple bitmask implementation",
+  "keywords": [
+    "bitmask"
+  ],
+  "homepage": "https://github.com/Aliance/Bitmask",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Aliance",
+      "email": "lesnykh.ilja@gmail.com"
+    }
+  ],
+  "support": {
+    "email": "lesnykh.ilja@gmail.com",
+    "issues": "https://github.com/Aliance/Bitmask/issues"
+  },
+  "autoload": {
+    "psr-4": {
+      "Aliance\\Bitmask\\": "src/"
+    }
+  },
+  "require": {
+    "php-64bit": ">=5.4"
+  }
+}
