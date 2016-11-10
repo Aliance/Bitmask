@@ -38,3 +38,19 @@ Update: no
 Delete: no
 –––––––––––––––––––––––––––––––––––
 ```
+
+Tests
+---
+
+For completely tests running just call `phpunit` command from `./vendor/bin`
+
+```
+Aliance/Bitmask $ ./vendor/bin/phpunit 
+PHPUnit 4.8.27 by Sebastian Bergmann and contributors.
+
+........
+
+Time: 85 ms, Memory: 4.00MB
+
+OK (8 tests, 92 assertions)
+```
