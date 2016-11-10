@@ -17,3 +17,24 @@ And just run installation command
 ```
     $ composer.phar install
 ```
+
+Usage
+---
+
+See usage in [sample](./example/example.php) file.
+
+```
+Aliance/Bitmask $ php -f example/example.php 
+Check user for all access levels:
+Create: no
+Read: no
+Update: no
+Delete: no
+–––––––––––––––––––––––––––––––––––
+Check user for all access levels:
+Create: no
+Read: yes
+Update: no
+Delete: no
+–––––––––––––––––––––––––––––––––––
+```
