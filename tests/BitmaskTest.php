@@ -12,6 +12,20 @@ class BitmaskTest extends TestCase
      */
     private $Bitmask;
 
+    /**
+     * @covers \Aliance\Bitmask\Bitmask::__construct
+     * @covers \Aliance\Bitmask\Bitmask::create
+     */
+    public function testBitmaskCreation()
+    {
+        $this->assertInstanceOf(Bitmask::class, $this->Bitmask);
+        $this->assertInstanceOf(Bitmask::class, Bitmask::create());
+    }
+
+    /**
+     * @covers \Aliance\Bitmask\Bitmask::getSetBitsCount
+     * @covers \Aliance\Bitmask\Bitmask::getMask
+     */
     public function testEmptyBitmask()
     {
         $this->assertEquals(0, $this->Bitmask->getSetBitsCount());
@@ -20,6 +34,8 @@ class BitmaskTest extends TestCase
     }
 
     /**
+     * @covers \Aliance\Bitmask\Bitmask::setBit
+     * @covers \Aliance\Bitmask\Bitmask::checkBit
      * @expectedException \InvalidArgumentException
      */
     public function testThatTooBigBitCauseAnException()
@@ -27,13 +43,51 @@ class BitmaskTest extends TestCase
         $this->Bitmask->setBit(Bitmask::MAX_BIT + 1);
     }
 
-    public function testMask()
+    /**
+     * @covers \Aliance\Bitmask\Bitmask::setMask
+     */
+    public function testMaskSetting()
     {
         $this->assertEquals(0, $this->Bitmask->getMask());
         $this->Bitmask->setMask(1024);
         $this->assertEquals(1024, $this->Bitmask->getMask());
     }
 
+    /**
+     * @covers \Aliance\Bitmask\Bitmask::addMask
+     */
+    public function testMaskAdding()
+    {
+        $this->assertEquals(0, $this->Bitmask->getMask());
+
+        // adding 10 bit
+        $this->Bitmask->addMask(1024);
+        $this->assertEquals(1024, $this->Bitmask->getMask());
+
+        // adding 3 bit
+        $this->Bitmask->addMask(8);
+        $this->assertEquals(1032, $this->Bitmask->getMask());
+    }
+
+    /**
+     * @covers \Aliance\Bitmask\Bitmask::deleteMask
+     */
+    public function testMaskDeleting()
+    {
+        $this->assertEquals(0, $this->Bitmask->getMask());
+
+        // adding 3 & 10 bits
+        $this->Bitmask->setMask(1032);
+        $this->assertEquals(1032, $this->Bitmask->getMask());
+
+        // deleting 10 bit
+        $this->Bitmask->deleteMask(1024);
+        $this->assertEquals(8, $this->Bitmask->getMask());
+    }
+
+    /**
+     * @covers \Aliance\Bitmask\Bitmask::unsetBit
+     */
     public function testBits()
     {
         $this->assertFalse($this->Bitmask->issetBit(3));
@@ -55,6 +109,7 @@ class BitmaskTest extends TestCase
     }
 
     /**
+     * @covers \Aliance\Bitmask\Bitmask::issetBit
      * @dataProvider getBitsWithMaskPairs
      * @param int[] $bits
      * @param int   $expectedMask
