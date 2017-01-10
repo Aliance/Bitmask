@@ -12,6 +12,10 @@ class BitmaskTest extends TestCase
      */
     private $Bitmask;
 
+    /**
+     * @covers Bitmask::getSetBitsCount
+     * @covers Bitmask::getMask
+     */
     public function testEmptyBitmask()
     {
         $this->assertEquals(0, $this->Bitmask->getSetBitsCount());
@@ -20,6 +24,7 @@ class BitmaskTest extends TestCase
     }
 
     /**
+     * @covers Bitmask::setBit
      * @expectedException \InvalidArgumentException
      */
     public function testThatTooBigBitCauseAnException()
@@ -27,6 +32,9 @@ class BitmaskTest extends TestCase
         $this->Bitmask->setBit(Bitmask::MAX_BIT + 1);
     }
 
+    /**
+     * @covers Bitmask::setMask
+     */
     public function testMask()
     {
         $this->assertEquals(0, $this->Bitmask->getMask());
@@ -34,6 +42,9 @@ class BitmaskTest extends TestCase
         $this->assertEquals(1024, $this->Bitmask->getMask());
     }
 
+    /**
+     * @covers Bitmask::unsetBit
+     */
     public function testBits()
     {
         $this->assertFalse($this->Bitmask->issetBit(3));
@@ -55,6 +66,7 @@ class BitmaskTest extends TestCase
     }
 
     /**
+     * @covers Bitmask::issetBit
      * @dataProvider getBitsWithMaskPairs
      * @param int[] $bits
      * @param int   $expectedMask
