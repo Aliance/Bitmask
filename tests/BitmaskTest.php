@@ -13,8 +13,8 @@ class BitmaskTest extends TestCase
     private $Bitmask;
 
     /**
-     * @covers Bitmask::getSetBitsCount
-     * @covers Bitmask::getMask
+     * @covers \Aliance\Bitmask\Bitmask::getSetBitsCount
+     * @covers \Aliance\Bitmask\Bitmask::getMask
      */
     public function testEmptyBitmask()
     {
@@ -24,7 +24,7 @@ class BitmaskTest extends TestCase
     }
 
     /**
-     * @covers Bitmask::setBit
+     * @covers \Aliance\Bitmask\Bitmask::setBit
      * @expectedException \InvalidArgumentException
      */
     public function testThatTooBigBitCauseAnException()
@@ -33,7 +33,7 @@ class BitmaskTest extends TestCase
     }
 
     /**
-     * @covers Bitmask::setMask
+     * @covers \Aliance\Bitmask\Bitmask::setMask
      */
     public function testMask()
     {
@@ -43,7 +43,7 @@ class BitmaskTest extends TestCase
     }
 
     /**
-     * @covers Bitmask::unsetBit
+     * @covers \Aliance\Bitmask\Bitmask::unsetBit
      */
     public function testBits()
     {
@@ -66,7 +66,7 @@ class BitmaskTest extends TestCase
     }
 
     /**
-     * @covers Bitmask::issetBit
+     * @covers \Aliance\Bitmask\Bitmask::issetBit
      * @dataProvider getBitsWithMaskPairs
      * @param int[] $bits
      * @param int   $expectedMask
