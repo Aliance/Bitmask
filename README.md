@@ -6,19 +6,20 @@ Simple bitmask implementation
 [![Build Status](https://travis-ci.org/Aliance/Bitmask.svg?branch=master)](https://travis-ci.org/Aliance/Bitmask)
 [![Code Coverage](https://scrutinizer-ci.com/g/Aliance/Bitmask/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Aliance/Bitmask/?branch=master)
 
+About
+---
+
+Bitmask is a simple PHP implementation of bitwise operations for creating masks.
+Can be used for some flags implementation.
+Currently supported PHP version: >= 5.5
+
 Installation
 ---
 
-For install library you need to modify your composer configuration file
+Install the latest version with composer:
 
-```
-    "aliance/bitmask": "*"
-```
-
-And just run installation command
-
-```
-    $ composer.phar install
+```bash
+$ composer require aliance/bitmask
 ```
 
 Usage
@@ -49,13 +50,13 @@ For completely tests running just call `phpunit` command from `./vendor/bin`
 
 ```
 Aliance/Bitmask $ ./vendor/bin/phpunit 
-PHPUnit 4.8.27 by Sebastian Bergmann and contributors.
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.
 
-........
+...........
 
-Time: 85 ms, Memory: 4.00MB
+Time: 68 ms, Memory: 4.25MB
 
-OK (8 tests, 92 assertions)
+OK (11 tests, 100 assertions)
 ```
 
 License
