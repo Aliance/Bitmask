@@ -46,18 +46,7 @@ Delete: no
 Tests
 ---
 
-For completely tests running just call `phpunit` command from `./vendor/bin`
-
-```
-Aliance/Bitmask $ ./vendor/bin/phpunit 
-PHPUnit 4.8.35 by Sebastian Bergmann and contributors.
-
-...........
-
-Time: 68 ms, Memory: 4.25MB
-
-OK (11 tests, 100 assertions)
-```
+For completely tests running just call `composer exec phpunit`.
 
 License
 ---
