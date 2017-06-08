@@ -10,7 +10,7 @@ define('ACCESS_CREATE', 1);
 define('ACCESS_READ', 2);
 define('ACCESS_UPDATE', 3);
 define('ACCESS_DELETE', 4);
-// etc, up to 62
+// etc, up to 63
 
 // some users from storage
 $user = [

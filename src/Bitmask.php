@@ -3,7 +3,7 @@ namespace Aliance\Bitmask;
 
 /**
  * Simple bitmask implementation.
- * Supports only 63 bits (from 0 to 62) on x64 platforms.
+ * Supports only 64 bits (from 0 to 63) on x64 platforms.
  */
 class Bitmask
 {
