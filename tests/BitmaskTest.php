@@ -161,7 +161,7 @@ class BitmaskTest extends TestCase
             ],
             [
                 range(0, Bitmask::MAX_BIT),
-                PHP_INT_MAX, // 9223372036854775807 for x64
+                -1, // in php int64 always signed :(
             ],
         ];
     }
