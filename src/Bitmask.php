@@ -10,7 +10,7 @@ class Bitmask
     /**
      * @var int
      */
-    const MAX_BIT = 62;
+    const MAX_BIT = 63;
 
     /**
      * @var int
