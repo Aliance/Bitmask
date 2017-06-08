@@ -93,19 +93,24 @@ class BitmaskTest extends TestCase
         $this->assertFalse($this->Bitmask->issetBit(3));
         $this->assertFalse($this->Bitmask->issetBit(5));
         $this->assertFalse($this->Bitmask->issetBit(12));
+        $this->assertFalse($this->Bitmask->issetBit(63));
 
         $this->Bitmask->setBit(3);
         $this->Bitmask->setBit(12);
+        $this->Bitmask->setBit(63);
 
         $this->assertTrue($this->Bitmask->issetBit(3));
         $this->assertFalse($this->Bitmask->issetBit(5));
         $this->assertTrue($this->Bitmask->issetBit(12));
+        $this->assertTrue($this->Bitmask->issetBit(63));
 
         $this->Bitmask->unsetBit(12);
+        $this->Bitmask->unsetBit(63);
 
         $this->assertTrue($this->Bitmask->issetBit(3));
         $this->assertFalse($this->Bitmask->issetBit(5));
         $this->assertFalse($this->Bitmask->issetBit(12));
+        $this->assertFalse($this->Bitmask->issetBit(63));
     }
 
     /**
