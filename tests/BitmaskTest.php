@@ -17,12 +17,12 @@ class BitmaskTest extends TestCase
      */
     private $Bitmask;
 
-    public function testBitmaskCreation(): void
+    public function testBitmaskCreation()
     {
         $this->assertInstanceOf(Bitmask::class, Bitmask::create());
     }
 
-    public function testEmptyBitmask(): void
+    public function testEmptyBitmask()
     {
         $this->assertEquals(0, $this->Bitmask->getSetBitsCount());
         $this->assertEquals(0, $this->Bitmask->getMask());
@@ -32,19 +32,19 @@ class BitmaskTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testThatTooBigBitCauseAnException(): void
+    public function testThatTooBigBitCauseAnException()
     {
         $this->Bitmask->setBit(Bitmask::MAX_BIT + 1);
     }
 
-    public function testMaskSetting(): void
+    public function testMaskSetting()
     {
         $this->assertEquals(0, $this->Bitmask->getMask());
         $this->Bitmask->setMask(1024);
         $this->assertEquals(1024, $this->Bitmask->getMask());
     }
 
-    public function testMaskAdding(): void
+    public function testMaskAdding()
     {
         $this->assertEquals(0, $this->Bitmask->getMask());
 
@@ -57,7 +57,7 @@ class BitmaskTest extends TestCase
         $this->assertEquals(1032, $this->Bitmask->getMask());
     }
 
-    public function testMaskDeleting(): void
+    public function testMaskDeleting()
     {
         $this->assertEquals(0, $this->Bitmask->getMask());
 
@@ -70,7 +70,7 @@ class BitmaskTest extends TestCase
         $this->assertEquals(8, $this->Bitmask->getMask());
     }
 
-    public function testBits(): void
+    public function testBits()
     {
         $this->assertFalse($this->Bitmask->issetBit(3));
         $this->assertFalse($this->Bitmask->issetBit(5));
@@ -100,7 +100,7 @@ class BitmaskTest extends TestCase
      * @param int[] $bits
      * @param int   $expectedMask
      */
-    public function testGeneralUsage(array $bits, int $expectedMask): void
+    public function testGeneralUsage(array $bits, int $expectedMask)
     {
         foreach ($bits as $bit) {
             $this->Bitmask->setBit($bit);
@@ -150,7 +150,7 @@ class BitmaskTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp(): void
+    protected function setUp()
     {
         $this->Bitmask = new Bitmask();
     }
