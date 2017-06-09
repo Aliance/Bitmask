@@ -5,10 +5,13 @@ cache:
 matrix:
     include:
         - php: 7.0
+          env: deps=low
+        - php: 7.0
         - php: 7.1
         - php: nightly
     fast_finish: true
     allow_failures:
         - php: nightly
 before_script:
-  - composer update
+  - if [ "$deps" == "low" ]; then composer update --prefer-dist --prefer-lowest --prefer-stable; fi
+  - if [ "$deps" != "low" ]; then composer update --prefer-dist; fi
