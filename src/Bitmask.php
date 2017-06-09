@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Aliance\Bitmask;
 
 /**
@@ -20,34 +22,34 @@ class Bitmask
     /**
      * @param int $mask
      */
-    public function __construct($mask = 0)
+    public function __construct(int $mask = 0)
     {
         $this->setMask($mask);
     }
 
     /**
      * @param int $mask
-     * @return $this
+     * @return self
      */
-    public static function create($mask = 0)
+    public static function create(int $mask = 0): self
     {
         return new self($mask);
     }
 
     /**
      * @param int $bit
-     * @return $this
+     * @return self
      */
-    public function setBit($bit)
+    public function setBit(int $bit): self
     {
         return $this->addMask(1 << $this->checkBit($bit));
     }
 
     /**
      * @param int $mask
-     * @return $this
+     * @return self
      */
-    public function addMask($mask)
+    public function addMask(int $mask): self
     {
         $this->mask |= $mask;
         return $this;
@@ -58,7 +60,7 @@ class Bitmask
      * @return int
      * @throws \InvalidArgumentException
      */
-    private function checkBit($bit)
+    private function checkBit(int $bit): int
     {
         if ($bit > self::MAX_BIT) {
             throw new \InvalidArgumentException(sprintf(
@@ -72,18 +74,18 @@ class Bitmask
 
     /**
      * @param int $bit
-     * @return $this
+     * @return self
      */
-    public function unsetBit($bit)
+    public function unsetBit(int $bit): self
     {
         return $this->deleteMask(1 << $this->checkBit($bit));
     }
 
     /**
      * @param int $mask
-     * @return $this
+     * @return self
      */
-    public function deleteMask($mask)
+    public function deleteMask(int $mask): self
     {
         $this->mask &= ~$mask;
         return $this;
@@ -93,7 +95,7 @@ class Bitmask
      * @param int $bit
      * @return bool
      */
-    public function issetBit($bit)
+    public function issetBit(int $bit): bool
     {
         return (bool)($this->getMask() & (1 << $this->checkBit($bit)));
     }
@@ -101,18 +103,18 @@ class Bitmask
     /**
      * @return int
      */
-    public function getMask()
+    public function getMask(): int
     {
         return $this->mask;
     }
 
     /**
      * @param int $mask
-     * @return $this
+     * @return self
      */
-    public function setMask($mask)
+    public function setMask(int $mask): self
     {
-        $this->mask = (int)$mask;
+        $this->mask = $mask;
         return $this;
     }
 
@@ -121,7 +123,7 @@ class Bitmask
      * Actually, counts the number of 1 in binary representation of the decimal mask integer.
      * @return int
      */
-    public function getSetBitsCount()
+    public function getSetBitsCount(): int
     {
         return substr_count(decbin($this->mask), '1');
     }

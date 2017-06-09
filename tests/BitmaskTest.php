@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Aliance\Bitmask\Tests;
 
 use Aliance\Bitmask\Bitmask;
@@ -15,12 +17,12 @@ class BitmaskTest extends TestCase
      */
     private $Bitmask;
 
-    public function testBitmaskCreation()
+    public function testBitmaskCreation(): void
     {
         $this->assertInstanceOf(Bitmask::class, Bitmask::create());
     }
 
-    public function testEmptyBitmask()
+    public function testEmptyBitmask(): void
     {
         $this->assertEquals(0, $this->Bitmask->getSetBitsCount());
         $this->assertEquals(0, $this->Bitmask->getMask());
@@ -30,19 +32,19 @@ class BitmaskTest extends TestCase
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testThatTooBigBitCauseAnException()
+    public function testThatTooBigBitCauseAnException(): void
     {
         $this->Bitmask->setBit(Bitmask::MAX_BIT + 1);
     }
 
-    public function testMaskSetting()
+    public function testMaskSetting(): void
     {
         $this->assertEquals(0, $this->Bitmask->getMask());
         $this->Bitmask->setMask(1024);
         $this->assertEquals(1024, $this->Bitmask->getMask());
     }
 
-    public function testMaskAdding()
+    public function testMaskAdding(): void
     {
         $this->assertEquals(0, $this->Bitmask->getMask());
 
@@ -55,7 +57,7 @@ class BitmaskTest extends TestCase
         $this->assertEquals(1032, $this->Bitmask->getMask());
     }
 
-    public function testMaskDeleting()
+    public function testMaskDeleting(): void
     {
         $this->assertEquals(0, $this->Bitmask->getMask());
 
@@ -68,7 +70,7 @@ class BitmaskTest extends TestCase
         $this->assertEquals(8, $this->Bitmask->getMask());
     }
 
-    public function testBits()
+    public function testBits(): void
     {
         $this->assertFalse($this->Bitmask->issetBit(3));
         $this->assertFalse($this->Bitmask->issetBit(5));
@@ -98,7 +100,7 @@ class BitmaskTest extends TestCase
      * @param int[] $bits
      * @param int   $expectedMask
      */
-    public function testGeneralUsage($bits, $expectedMask)
+    public function testGeneralUsage(array $bits, int $expectedMask): void
     {
         foreach ($bits as $bit) {
             $this->Bitmask->setBit($bit);
@@ -115,7 +117,7 @@ class BitmaskTest extends TestCase
     /**
      * @return array
      */
-    public function getBitsWithMaskPairs()
+    public function getBitsWithMaskPairs(): array
     {
         return [
             [
@@ -148,7 +150,7 @@ class BitmaskTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->Bitmask = new Bitmask();
     }
