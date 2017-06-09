@@ -1,5 +1,7 @@
 <?php
 
+require_once realpath(__DIR__ . '/../vendor/autoload.php');
+
 /*
  * For example, we have some blog with users stored in some storage.
  * The main entity for blog – news.
@@ -16,9 +18,6 @@ define('ACCESS_DELETE', 4);
 $user = [
     'access_level' => 0, // default access level – restrict access to all
 ];
-
-// hardcode including the library, in real project use composer with autoloading
-require_once realpath(dirname('.')) . '/src/Bitmask.php';
 
 // create a Bitmask object, passing user bitmask from storage
 $Bitmask = \Aliance\Bitmask\Bitmask::create($user['access_level']);
