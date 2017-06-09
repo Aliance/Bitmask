@@ -22,6 +22,11 @@
       "Aliance\\Bitmask\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Aliance\\Bitmask\\Tests\\": "tests/"
+    }
+  },
   "require": {
     "php-64bit": ">=7.0"
   },

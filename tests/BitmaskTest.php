@@ -1,4 +1,6 @@
 <?php
+namespace Aliance\Bitmask\Tests;
+
 use Aliance\Bitmask\Bitmask;
 use PHPUnit\Framework\TestCase;
 
