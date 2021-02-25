@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Aliance\Bitmask\Tests;
 
 use Aliance\Bitmask\Bitmask;
@@ -10,112 +12,109 @@ use PHPUnit\Framework\TestCase;
  */
 class BitmaskTest extends TestCase
 {
-    /**
-     * @var Bitmask
-     */
-    private $Bitmask;
+    private Bitmask $bitmask;
 
-    public function testBitmaskCreation()
+    protected function setUp(): void
     {
-        $this->assertInstanceOf(Bitmask::class, Bitmask::create());
+        $this->bitmask = new Bitmask();
     }
 
-    public function testEmptyBitmask()
+    public function testBitmaskCreation(): void
     {
-        $this->assertEquals(0, $this->Bitmask->getSetBitsCount());
-        $this->assertEquals(0, $this->Bitmask->getMask());
-        $this->assertFalse($this->Bitmask->issetBit(1));
+        $this->assertInstanceOf(Bitmask::class, new Bitmask());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testThatTooBigBitCauseAnException()
+    public function testEmptyBitmask(): void
     {
-        $this->Bitmask->setBit(Bitmask::MAX_BIT + 1);
+        $this->assertEquals(0, $this->bitmask->getSetBitsCount());
+        $this->assertEquals(0, $this->bitmask->getMask());
+        $this->assertFalse($this->bitmask->issetBit(1));
     }
 
-    public function testMaskSetting()
+    public function testThatTooBigBitCauseAnException(): void
     {
-        $this->assertEquals(0, $this->Bitmask->getMask());
-        $this->Bitmask->setMask(1024);
-        $this->assertEquals(1024, $this->Bitmask->getMask());
+        $this->expectException(\InvalidArgumentException::class);
+        $this->bitmask->setBit(64);
     }
 
-    public function testMaskAdding()
+    public function testMaskSetting(): void
     {
-        $this->assertEquals(0, $this->Bitmask->getMask());
-
-        // adding 10 bit
-        $this->Bitmask->addMask(1024);
-        $this->assertEquals(1024, $this->Bitmask->getMask());
-
-        // adding 3 bit
-        $this->Bitmask->addMask(8);
-        $this->assertEquals(1032, $this->Bitmask->getMask());
+        $this->assertEquals(0, $this->bitmask->getMask());
+        $this->bitmask->setMask(1024);
+        $this->assertEquals(1024, $this->bitmask->getMask());
     }
 
-    public function testMaskDeleting()
+    public function testMaskAdding(): void
     {
-        $this->assertEquals(0, $this->Bitmask->getMask());
+        $this->assertEquals(0, $this->bitmask->getMask());
 
-        // adding 3 & 10 bits
-        $this->Bitmask->setMask(1032);
-        $this->assertEquals(1032, $this->Bitmask->getMask());
+        // adding 10th bit
+        $this->bitmask->addMask(1024);
+        $this->assertEquals(1024, $this->bitmask->getMask());
 
-        // deleting 10 bit
-        $this->Bitmask->deleteMask(1024);
-        $this->assertEquals(8, $this->Bitmask->getMask());
+        // adding 3rd bit
+        $this->bitmask->addMask(8);
+        $this->assertEquals(1032, $this->bitmask->getMask());
     }
 
-    public function testBits()
+    public function testMaskDeleting(): void
     {
-        $this->assertFalse($this->Bitmask->issetBit(3));
-        $this->assertFalse($this->Bitmask->issetBit(5));
-        $this->assertFalse($this->Bitmask->issetBit(12));
-        $this->assertFalse($this->Bitmask->issetBit(63));
+        $this->assertEquals(0, $this->bitmask->getMask());
 
-        $this->Bitmask->setBit(3);
-        $this->Bitmask->setBit(12);
-        $this->Bitmask->setBit(63);
+        // adding 3rd & 10th bits
+        $this->bitmask->setMask(1032);
+        $this->assertEquals(1032, $this->bitmask->getMask());
 
-        $this->assertTrue($this->Bitmask->issetBit(3));
-        $this->assertFalse($this->Bitmask->issetBit(5));
-        $this->assertTrue($this->Bitmask->issetBit(12));
-        $this->assertTrue($this->Bitmask->issetBit(63));
+        // deleting 10th bit
+        $this->bitmask->deleteMask(1024);
+        $this->assertEquals(8, $this->bitmask->getMask());
+    }
 
-        $this->Bitmask->unsetBit(12);
-        $this->Bitmask->unsetBit(63);
+    public function testBits(): void
+    {
+        $this->assertFalse($this->bitmask->issetBit(3));
+        $this->assertFalse($this->bitmask->issetBit(5));
+        $this->assertFalse($this->bitmask->issetBit(12));
+        $this->assertFalse($this->bitmask->issetBit(63));
 
-        $this->assertTrue($this->Bitmask->issetBit(3));
-        $this->assertFalse($this->Bitmask->issetBit(5));
-        $this->assertFalse($this->Bitmask->issetBit(12));
-        $this->assertFalse($this->Bitmask->issetBit(63));
+        $this->bitmask->setBit(3);
+        $this->bitmask->setBit(12);
+        $this->bitmask->setBit(63);
+
+        $this->assertTrue($this->bitmask->issetBit(3));
+        $this->assertFalse($this->bitmask->issetBit(5));
+        $this->assertTrue($this->bitmask->issetBit(12));
+        $this->assertTrue($this->bitmask->issetBit(63));
+
+        $this->bitmask->unsetBit(12);
+        $this->bitmask->unsetBit(63);
+
+        $this->assertTrue($this->bitmask->issetBit(3));
+        $this->assertFalse($this->bitmask->issetBit(5));
+        $this->assertFalse($this->bitmask->issetBit(12));
+        $this->assertFalse($this->bitmask->issetBit(63));
     }
 
     /**
      * @dataProvider getBitsWithMaskPairs
      * @param int[] $bits
-     * @param int   $expectedMask
+     * @param int $expectedMask
      */
-    public function testGeneralUsage($bits, $expectedMask)
+    public function testGeneralUsage(array $bits, int $expectedMask): void
     {
         foreach ($bits as $bit) {
-            $this->Bitmask->setBit($bit);
+            $this->bitmask->setBit($bit);
         }
 
-        $this->assertCount($this->Bitmask->getSetBitsCount(), $bits);
-        $this->assertEquals($expectedMask, $this->Bitmask->getMask());
+        $this->assertCount($this->bitmask->getSetBitsCount(), $bits);
+        $this->assertEquals($expectedMask, $this->bitmask->getMask());
 
         foreach ($bits as $bit) {
-            $this->assertTrue($this->Bitmask->issetBit($bit));
+            $this->assertTrue($this->bitmask->issetBit($bit));
         }
     }
 
-    /**
-     * @return array
-     */
-    public function getBitsWithMaskPairs()
+    public function getBitsWithMaskPairs(): array
     {
         return [
             [
@@ -123,33 +122,17 @@ class BitmaskTest extends TestCase
                 0, // no bits will be set
             ],
             [
-                [
-                    1,
-                    3,
-                    6,
-                ],
+                [1, 3, 6],
                 74, // 2^1 + 2^3 + 2^6 = 2 + 8 + 64
             ],
             [
-                [
-                    2,
-                    10,
-                    30,
-                ],
+                [2, 10, 30,],
                 1073742852, // 2^2 + 2^10 + 2^30 = 4 + 1024 + 1073741824
             ],
             [
-                range(0, Bitmask::MAX_BIT),
+                range(0, 63),
                 -1, // in php int64 always signed :(
             ],
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function setUp()
-    {
-        $this->Bitmask = new Bitmask();
     }
 }
