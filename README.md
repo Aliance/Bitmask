@@ -11,7 +11,7 @@ About
 
 Bitmask is a simple PHP implementation of bitwise operations for creating masks.
 Can be used for some flags implementation.
-Currently supported PHP version: >= 7.0
+Currently supported PHP version: >= 7.4
 
 Installation
 ---
@@ -35,12 +35,14 @@ Read: no
 Update: no
 Delete: no
 –––––––––––––––––––––––––––––––––––
+
 Check user for all access levels:
 Create: no
 Read: yes
 Update: no
 Delete: no
 –––––––––––––––––––––––––––––––––––
+
 ```
 
 Tests

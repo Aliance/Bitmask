@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require_once realpath(__DIR__ . '/../vendor/autoload.php');
 
-/**
+/*
  * For example, we have some blog with users stored in some storage.
  * The main entity for blog – news.
  * Users should have the ACL for creating, reading, updating and deleting news.
@@ -38,5 +38,5 @@ function checkRights(\Aliance\Bitmask\Bitmask $Bitmask)
     echo 'Read: ', $Bitmask->issetBit(ACCESS_READ) ? 'yes' : 'no', PHP_EOL;
     echo 'Update: ', $Bitmask->issetBit(ACCESS_UPDATE) ? 'yes' : 'no', PHP_EOL;
     echo 'Delete: ', $Bitmask->issetBit(ACCESS_DELETE) ? 'yes' : 'no', PHP_EOL;
-    echo str_repeat('–', 35), PHP_EOL . PHP_EOL;
+    echo str_repeat('–', 35), PHP_EOL, PHP_EOL;
 }

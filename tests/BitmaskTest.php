@@ -14,11 +14,6 @@ class BitmaskTest extends TestCase
 {
     private Bitmask $bitmask;
 
-    protected function setUp(): void
-    {
-        $this->bitmask = new Bitmask();
-    }
-
     public function testBitmaskCreation(): void
     {
         $this->assertInstanceOf(Bitmask::class, new Bitmask());
@@ -122,11 +117,19 @@ class BitmaskTest extends TestCase
                 0, // no bits will be set
             ],
             [
-                [1, 3, 6],
+                [
+                    1,
+                    3,
+                    6,
+                ],
                 74, // 2^1 + 2^3 + 2^6 = 2 + 8 + 64
             ],
             [
-                [2, 10, 30,],
+                [
+                    2,
+                    10,
+                    30,
+                ],
                 1073742852, // 2^2 + 2^10 + 2^30 = 4 + 1024 + 1073741824
             ],
             [
@@ -134,5 +137,10 @@ class BitmaskTest extends TestCase
                 -1, // in php int64 always signed :(
             ],
         ];
+    }
+
+    protected function setUp(): void
+    {
+        $this->bitmask = new Bitmask();
     }
 }
