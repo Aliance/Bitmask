@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Aliance\Bitmask;
 
 /**
@@ -7,122 +10,71 @@ namespace Aliance\Bitmask;
  */
 class Bitmask
 {
-    /**
-     * @var int
-     */
-    const MAX_BIT = 63;
+    private const MAX_BIT = 63;
 
-    /**
-     * @var int
-     */
-    private $mask;
+    private int $mask;
 
-    /**
-     * @param int $mask
-     */
-    public function __construct($mask = 0)
+    public function __construct(int $mask = 0)
     {
         $this->setMask($mask);
     }
 
-    /**
-     * @param int $mask
-     * @return $this
-     */
-    public static function create($mask = 0)
-    {
-        return new self($mask);
-    }
-
-    /**
-     * @param int $bit
-     * @return $this
-     */
-    public function setBit($bit)
+    public function setBit(int $bit): self
     {
         return $this->addMask(1 << $this->checkBit($bit));
     }
 
-    /**
-     * @param int $mask
-     * @return $this
-     */
-    public function addMask($mask)
+    public function addMask(int $mask): self
     {
         $this->mask |= $mask;
         return $this;
     }
 
-    /**
-     * @param int $bit
-     * @return int
-     * @throws \InvalidArgumentException
-     */
-    private function checkBit($bit)
-    {
-        if ($bit > self::MAX_BIT) {
-            throw new \InvalidArgumentException(sprintf(
-                'Bit number %d is greater than possible limit %d.',
-                $bit,
-                self::MAX_BIT
-            ));
-        }
-        return $bit;
-    }
-
-    /**
-     * @param int $bit
-     * @return $this
-     */
-    public function unsetBit($bit)
+    public function unsetBit(int $bit): self
     {
         return $this->deleteMask(1 << $this->checkBit($bit));
     }
 
-    /**
-     * @param int $mask
-     * @return $this
-     */
-    public function deleteMask($mask)
+    public function deleteMask(int $mask): self
     {
         $this->mask &= ~$mask;
         return $this;
     }
 
-    /**
-     * @param int $bit
-     * @return bool
-     */
-    public function issetBit($bit)
+    public function issetBit(int $bit): bool
     {
-        return (bool)($this->getMask() & (1 << $this->checkBit($bit)));
+        return (bool) ($this->getMask() & (1 << $this->checkBit($bit)));
     }
 
-    /**
-     * @return int
-     */
-    public function getMask()
+    public function getMask(): int
     {
         return $this->mask;
     }
 
-    /**
-     * @param int $mask
-     * @return $this
-     */
-    public function setMask($mask)
+    public function setMask(int $mask): self
     {
-        $this->mask = (int)$mask;
+        $this->mask = $mask;
         return $this;
     }
 
     /**
      * Return set bits count.
      * Actually, counts the number of 1 in binary representation of the decimal mask integer.
-     * @return int
      */
-    public function getSetBitsCount()
+    public function getSetBitsCount(): int
     {
         return substr_count(decbin($this->mask), '1');
+    }
+
+    private function checkBit(int $bit): int
+    {
+        if ($bit > self::MAX_BIT || $bit < 0) {
+            throw new \InvalidArgumentException(sprintf(
+                'Bit number %d is out of range [0..%d].',
+                $bit,
+                self::MAX_BIT
+            ));
+        }
+        return $bit;
     }
 }
