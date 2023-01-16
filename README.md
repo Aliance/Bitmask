@@ -23,6 +23,12 @@ Install the latest version with composer:
 composer require aliance/bitmask
 ```
 
+If you checkout this library for testing purposes, install it's dependencies:
+
+```bash
+docker run --rm -it --volume $PWD:/app -u $(id -u):$(id -g) composer:1.10.19 i
+```
+
 Usage
 ---
 
