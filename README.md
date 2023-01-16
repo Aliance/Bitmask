@@ -11,7 +11,7 @@ About
 ---
 
 Bitmask is a simple PHP implementation of bitwise operations for creating masks.
-Can be used for some flags implementation.
+Can be used for some flags' implementation.
 Supports only 64 bits (from 0 to 63) on x64 platforms.
 
 Installation
@@ -23,7 +23,7 @@ Install the latest version with composer:
 composer require aliance/bitmask
 ```
 
-If you checkout this library for testing purposes, install it's dependencies:
+If you checkout this library for testing purposes, install its dependencies:
 
 ```bash
 docker run --rm -it --volume $PWD:/app -u $(id -u):$(id -g) composer:1.10.19 i
