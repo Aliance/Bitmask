@@ -1,11 +1,10 @@
 build:
-    environment:
-        php:
-            version: 7.4
-    tests:
-        override:
-            -
-                command: './vendor/bin/phpunit --coverage-clover report.xml'
-                coverage:
-                    file: 'report.xml'
-                    format: 'clover'
+  environment:
+    php:
+      version: 7.4
+  tests:
+    override:
+      - command: './vendor/bin/phpunit --coverage-clover report.xml'
+        coverage:
+          file: 'report.xml'
+          format: 'clover'
