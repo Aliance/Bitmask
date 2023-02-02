@@ -1,0 +1,45 @@
+name: PHP Composer
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Test on php ${{ matrix.php_version }}
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php_version: ['7.4', '8.0']
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+      - name: Validate dependencies
+        uses: php-actions/composer@v6
+        with:
+          command: validate
+
+      - name: Install dependencies on php ${{ matrix.php_version }}
+        uses: php-actions/composer@v6
+        with:
+          php_version: "${{ matrix.php_version }}"
+          version: 1
+
+      - name: Run phpunit tests on php ${{ matrix.php_version }}
+        uses: php-actions/phpunit@v3
+        with:
+          php_version: "${{ matrix.php_version }}"
