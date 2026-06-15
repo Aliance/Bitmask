@@ -3,7 +3,7 @@ Simple bitmask implementation
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Packagist](https://img.shields.io/packagist/v/aliance/bitmask.svg)](https://packagist.org/packages/aliance/bitmask)
-![PHP Version](https://img.shields.io/badge/PHP-8.1-green.svg)
+![PHP Version](https://img.shields.io/badge/PHP-8.3-green.svg)
 [![Code Coverage](https://scrutinizer-ci.com/g/Aliance/Bitmask/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Aliance/Bitmask/?branch=master)
 
 About
@@ -34,7 +34,7 @@ Usage
 See usage in [sample](./example/example.php) file.
 
 ```bash
-docker run -it --rm -v "$PWD":/usr/src/bitmask -w /usr/src/bitmask php:8.1-cli php example/example.php  
+docker run -it --rm -v "$PWD":/usr/src/bitmask -w /usr/src/bitmask php:8.3-cli php example/example.php  
 ```
 ```
 Check user for all access levels:
@@ -58,7 +58,7 @@ Tests
 
 For completely tests running just call `composer exec phpunit` or use
 ```bash
-docker run -it --rm -v "$PWD":/usr/src/bitmask -w /usr/src/bitmask php:8.1-cli php ./vendor/bin/phpunit 
+docker run -it --rm -v "$PWD":/usr/src/bitmask -w /usr/src/bitmask php:8.3-cli php ./vendor/bin/phpunit 
 ```
 
 License
