@@ -4,7 +4,7 @@ Simple bitmask implementation
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Packagist](https://img.shields.io/packagist/v/aliance/bitmask.svg)](https://packagist.org/packages/aliance/bitmask)
 ![PHP Version](https://img.shields.io/badge/PHP-8.3-green.svg)
-[![Code Coverage](https://scrutinizer-ci.com/g/Aliance/Bitmask/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Aliance/Bitmask/?branch=master)
+[![Code Coverage](https://codecov.io/gh/Aliance/Bitmask/branch/master/graph/badge.svg)](https://codecov.io/gh/Aliance/Bitmask)
 
 About
 ---
