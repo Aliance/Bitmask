@@ -17,13 +17,13 @@ jobs:
 
     strategy:
       matrix:
-        php_version: ['8.1', '8.2']
+        php_version: ['8.3', '8.4', '8.5']
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
 
       - name: Cache Composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: /tmp/composer-cache
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
@@ -40,6 +40,7 @@ jobs:
           version: 2
 
       - name: Run phpunit tests on php ${{ matrix.php_version }}
-        uses: php-actions/phpunit@v3
+        uses: php-actions/phpunit@v4
         with:
           php_version: "${{ matrix.php_version }}"
+          configuration: phpunit.xml
