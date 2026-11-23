@@ -10,7 +10,7 @@ namespace Aliance\Bitmask;
  */
 class Bitmask
 {
-    private const MAX_BIT = 63;
+    private const int MAX_BIT = 63;
 
     private int $mask;
 
@@ -44,6 +44,16 @@ class Bitmask
     public function issetBit(int $bit): bool
     {
         return (bool) ($this->getMask() & (1 << $this->checkBit($bit)));
+    }
+
+    public function hasAll(int $mask): bool
+    {
+        return ($this->getMask() & $mask) === $mask;
+    }
+
+    public function hasAny(int $mask): bool
+    {
+        return ($this->getMask() & $mask) !== 0;
     }
 
     public function getMask(): int
