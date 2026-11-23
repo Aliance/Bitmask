@@ -23,8 +23,8 @@ class BitmaskTest extends TestCase
 
     public function testEmptyBitmask(): void
     {
-        self::assertEquals(0, $this->bitmask->getSetBitsCount());
-        self::assertEquals(0, $this->bitmask->getMask());
+        self::assertSame(0, $this->bitmask->getSetBitsCount());
+        self::assertSame(0, $this->bitmask->getMask());
         self::assertFalse($this->bitmask->issetBit(1));
     }
 
@@ -36,35 +36,35 @@ class BitmaskTest extends TestCase
 
     public function testMaskSetting(): void
     {
-        self::assertEquals(0, $this->bitmask->getMask());
+        self::assertSame(0, $this->bitmask->getMask());
         $this->bitmask->setMask(1024);
-        self::assertEquals(1024, $this->bitmask->getMask());
+        self::assertSame(1024, $this->bitmask->getMask());
     }
 
     public function testMaskAdding(): void
     {
-        self::assertEquals(0, $this->bitmask->getMask());
+        self::assertSame(0, $this->bitmask->getMask());
 
         // adding 10th bit
         $this->bitmask->addMask(1024);
-        self::assertEquals(1024, $this->bitmask->getMask());
+        self::assertSame(1024, $this->bitmask->getMask());
 
         // adding 3rd bit
         $this->bitmask->addMask(8);
-        self::assertEquals(1032, $this->bitmask->getMask());
+        self::assertSame(1032, $this->bitmask->getMask());
     }
 
     public function testMaskDeleting(): void
     {
-        self::assertEquals(0, $this->bitmask->getMask());
+        self::assertSame(0, $this->bitmask->getMask());
 
         // adding 3rd & 10th bits
         $this->bitmask->setMask(1032);
-        self::assertEquals(1032, $this->bitmask->getMask());
+        self::assertSame(1032, $this->bitmask->getMask());
 
         // deleting 10th bit
         $this->bitmask->deleteMask(1024);
-        self::assertEquals(8, $this->bitmask->getMask());
+        self::assertSame(8, $this->bitmask->getMask());
     }
 
     public function testBits(): void
@@ -103,7 +103,7 @@ class BitmaskTest extends TestCase
         }
 
         self::assertCount($this->bitmask->getSetBitsCount(), $bits);
-        self::assertEquals($expectedMask, $this->bitmask->getMask());
+        self::assertSame($expectedMask, $this->bitmask->getMask());
 
         foreach ($bits as $bit) {
             self::assertTrue($this->bitmask->issetBit($bit));
