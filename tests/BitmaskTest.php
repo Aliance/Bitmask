@@ -67,6 +67,120 @@ class BitmaskTest extends TestCase
         self::assertSame(8, $this->bitmask->getMask());
     }
 
+    #[DataProvider('provideHasAllCases')]
+    public function testHasAll(int $stored, int $requested, bool $expected): void
+    {
+        self::assertSame($expected, (new Bitmask($stored))->hasAll($requested));
+    }
+
+    public static function provideHasAllCases(): array
+    {
+        return [
+            'empty mask satisfies an empty request' => [
+                0,
+                0,
+                'expected' => true,
+            ],
+            'nonempty mask also satisfies an empty request' => [
+                0b1011,
+                0,
+                'expected' => true,
+            ],
+            'empty mask cannot supply any requested bits' => [
+                0,
+                0b0011,
+                'expected' => false,
+            ],
+            'extra stored bits are allowed' => [
+                0b1011,
+                0b0011,
+                'expected' => true,
+            ],
+            'one missing bit makes a partial match fail' => [
+                0b1011,
+                0b0110,
+                'expected' => false,
+            ],
+            'disjoint masks leave every requested bit missing' => [
+                0b1011,
+                0b0100,
+                'expected' => false,
+            ],
+            'bit 63 satisfies a request for bit 63 alone' => [
+                PHP_INT_MIN,
+                PHP_INT_MIN,
+                'expected' => true,
+            ],
+            'bit 63 alone cannot satisfy a request for bits 63 and 0' => [
+                PHP_INT_MIN,
+                PHP_INT_MIN | 1,
+                'expected' => false,
+            ],
+            'a full mask satisfies a request for all 64 bits' => [
+                -1,
+                -1,
+                'expected' => true,
+            ],
+        ];
+    }
+
+    #[DataProvider('provideHasAnyCases')]
+    public function testHasAny(int $stored, int $requested, bool $expected): void
+    {
+        self::assertSame($expected, (new Bitmask($stored))->hasAny($requested));
+    }
+
+    public static function provideHasAnyCases(): array
+    {
+        return [
+            'two empty masks share no bits' => [
+                0,
+                0,
+                'expected' => false,
+            ],
+            'an empty request shares no bits with a nonempty mask' => [
+                0b1011,
+                0,
+                'expected' => false,
+            ],
+            'an empty mask shares no bits with a nonempty request' => [
+                0,
+                0b0011,
+                'expected' => false,
+            ],
+            'a request overlaps when every requested bit is set' => [
+                0b1011,
+                0b0011,
+                'expected' => true,
+            ],
+            'one shared bit is enough for a partial match' => [
+                0b1011,
+                0b0110,
+                'expected' => true,
+            ],
+            'disjoint masks share no bits' => [
+                0b1011,
+                0b0100,
+                'expected' => false,
+            ],
+            'two masks containing only bit 63 overlap' => [
+                PHP_INT_MIN,
+                PHP_INT_MIN,
+                'expected' => true,
+            ],
+            'sharing bit 63 is enough even when bit 0 is missing' => [
+                PHP_INT_MIN,
+                PHP_INT_MIN | 1,
+                'expected' => true,
+            ],
+            'two full masks overlap across all 64 bits' => [
+                -1,
+                -1,
+                'expected' => true,
+            ],
+        ];
+    }
+
     public function testBits(): void
     {
         self::assertFalse($this->bitmask->issetBit(3));
