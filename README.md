@@ -31,26 +31,33 @@ docker run --rm -it --volume $PWD:/app -u $(id -u):$(id -g) composer:2 i
 Usage
 ---
 
-See usage in [sample](./example/example.php) file.
+Pass a bit position (0 through 63) to `setBit()`, `unsetBit()` and `issetBit()`.
+Pass an integer mask to `addMask()` and `deleteMask()`. For example, starting from an empty mask:
+
+```php
+use Aliance\Bitmask\Bitmask;
+
+(new Bitmask())->setBit(3)->getMask();  // 8 (bit 3)
+(new Bitmask())->addMask(3)->getMask(); // 3 (bits 0 and 1)
+```
+
+The [permission example](./example/example.php) uses an integer-backed enum to name bit positions.
+It loads a user with Create permission, grants Read, and saves the updated value with `getMask()`.
+Loading that value restores both permissions.
+
+PHP uses signed integers. Setting bit 63 makes the mask negative.
+Use a signed 64-bit column such as `BIGINT` to store the full range and pass the signed value back to the constructor when reading it.
 
 ```bash
-docker run -it --rm -v "$PWD":/usr/src/bitmask -w /usr/src/bitmask php:8.3-cli php example/example.php  
+docker run --rm -v "$PWD":/usr/src/bitmask -w /usr/src/bitmask php:8.3-cli php example/example.php
 ```
-```
-Check user for all access levels:
-Create: no
-Read: no
-Update: no
-Delete: no
-–––––––––––––––––––––––––––––––––––
 
-Check user for all access levels:
-Create: no
+```text
+Stored mask: 3
+Create: yes
 Read: yes
 Update: no
 Delete: no
-–––––––––––––––––––––––––––––––––––
-
 ```
 
 Tests
